@@ -1,42 +1,69 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кликер</title>
-    <style>
-        body {
-            background-color: #e5e5e5; /* Цвет заднего фона */
-            color: #000000; /* Цвет текста */
-            font-family: Arial, sans-serif;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-    </style>
+<style>
+body {
+  background-color: black;
+}
+
+.dino {
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.cactus {
+  width: 20px;
+  height: 40px;
+  background-color: grey;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+</style>
 </head>
 <body>
-    <h1>Добро пожаловать в кликер!</h1>
-    <p id="balance">Баланс: <span id="balanceAmount">0</span> коинов</p>
-    <button onclick="clickHandler()">Кликни здесь!</button>
-    <br>
-    <button onclick="topHandler()">Топ</button>
-    <script>
-        let balance = 0;
 
-        function clickHandler() {
-            balance++;
-            document.getElementById('balanceAmount').innerText = balance;
-        }
+<div class="dino"></div>
+<div class="cactus"></div>
 
-        function topHandler() {
-            // Отправка запроса на сервер для обработки топа
-        }
-    </script>
+<script>
+let dino = document.querySelector('.dino');
+let cactus = document.querySelector('.cactus');
+let score = 0;
+
+document.addEventListener('keydown', function(event) {
+  if (event.code === 'Space') {
+    jump();
+  }
+});
+
+function jump() {
+  if (dino.classList != 'jump') {
+    dino.classList.add('jump');
+    setTimeout(function() {
+      dino.classList.remove('jump');
+    }, 300)
+  }
+}
+
+let isAlive = setInterval(function() {
+  let dinoPosition = parseInt(window.getComputedStyle(dino).getPropertyValue('left'));
+  let cactusPosition = parseInt(window.getComputedStyle(cactus).getPropertyValue('right'));
+
+  if (dinoPosition >= cactusPosition) {
+    cactus.style.animation = 'none';
+    alert('Game Over. Your score: ' + score);
+    clearInterval(isAlive);
+  } else {
+    score++;
+  }
+}, 10);
+</script>
+
 </body>
 </html>
