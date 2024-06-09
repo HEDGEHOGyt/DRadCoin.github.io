@@ -1,79 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <style>
-    #dino {
-      width: 40px;
-      height: 40px;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      background: red;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coin Clicker Game</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f0f0f0;
     }
-
-    #obstacle {
-      width: 20px;
-      height: 20px;
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      background: green;
+    #coin {
+        width: 100px;
+        height: 100px;
+        background-color: gold;
+        border-radius: 50%;
+        margin: 50px auto;
+        cursor: pointer;
     }
-  </style>
+    #balance {
+        font-size: 24px;
+        color: green;
+    }
+</style>
 </head>
 <body>
-  <div id="dino"></div>
-  <div id="obstacle"></div>
+<div id="coin"></div>
+<p>Your Balance: <span id="balance">0</span></p>
 
-  <script>
-    const dino = document.getElementById('dino');
-    const obstacle = document.getElementById('obstacle');
+<script>
+    let balance = 0;
+    const coin = document.getElementById('coin');
+    const balanceDisplay = document.getElementById('balance');
 
-    let isJumping = false;
-
-    function jump() {
-      if (!isJumping) {
-        isJumping = true;
-        let dinoPosition = 0;
-        let jumpInterval = setInterval(() => {
-          if (dinoPosition >= 150) {
-            clearInterval(jumpInterval);
-            let downInterval = setInterval(() => {
-              if (dinoPosition <= 0) {
-                clearInterval(downInterval);
-                isJumping = false;
-              } else {
-                dinoPosition -= 20;
-                dino.style.bottom = dinoPosition + 'px';
-              }
-            }, 30);
-          } else {
-            dinoPosition += 20;
-            dino.style.bottom = dinoPosition + 'px';
-          }
-        }, 30);
-      }
-    }
-
-    document.addEventListener('keyup', (event) => {
-      if (event.code === 'Space') {
-        jump();
-      }
+    coin.addEventListener('click', () => {
+        balance++;
+        balanceDisplay.textContent = balance;
     });
-
-    function moveObstacle() {
-      let obstaclePosition = 100;
-      let moveInterval = setInterval(() => {
-        if (obstaclePosition <= -20) {
-          obstaclePosition = 100;
-        } else {
-          obstaclePosition -= 5;
-          obstacle.style.right = obstaclePosition + 'px';
-        }
-      }, 30);
-    }
-    
-    moveObstacle();
-  </script>
+</script>
 </body>
 </html>
