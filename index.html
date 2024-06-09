@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+    var clickCount = 0; // Переменная для хранения количества кликов
+
+    function increaseClickCount() {
+        clickCount++; // Увеличиваем количество кликов на 1
+        document.getElementById("clickCount").innerHTML = clickCount; // Отображаем общее количество кликов на веб-странице
+    }
+</script>
+</head>
+<body>
+    <button onclick="increaseClickCount()">Кликнуть</button>
+    <p>Общее количество кликов: <span id="clickCount">0</span></p>
+</body>
+</html>
