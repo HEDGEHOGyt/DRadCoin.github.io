@@ -1,64 +1,44 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Google Dinosaur Game</title>
-  <style>
-    #game-container {
-      position: relative;
-      width: 600px;
-      height: 200px;
-      border: 1px solid #000;
-    }
-    #dino {
-      position: absolute;
-      bottom: 0;
-      left: 10px;
-      width: 50px;
-      height: 50px;
-      background-color: #666;
-    }
-  </style>
-</head>
-<body>
-  <h1>Google Dinosaur Game</h1>
-  <p>Press space to jump</p>
-  <div id="game-container">
-    <div id="dino"></div>
-  </div>
-
-  <script>
-    document.addEventListener('keydown', function(event) {
-      if (event.code === 'Space') {
-        jump();
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      #dinosaur {
+        position: absolute;
       }
-    });
+    </style>
+    <title>Dinosaur</title>
+  </head>
+  <body>
+    <div id="dinosaur">🦕</div>
 
-    function jump() {
-      let dino = document.getElementById('dino');
-      let currentPosition = 0;
-      let jumpInterval = setInterval(function() {
-        if (currentPosition === 100) {
-          clearInterval(jumpInterval);
-          fall();
-        } else {
-          currentPosition += 10;
-          dino.style.bottom = currentPosition + 'px';
-        }
-      }, 20);
-    }
+    <script>
+      const dinosaur = document.getElementById("dinosaur");
+      let position = 0;
+      let isJumping = false;
 
-    function fall() {
-      let dino = document.getElementById('dino');
-      let currentPosition = 100;
-      let fallInterval = setInterval(function() {
-        if (currentPosition === 0) {
-          clearInterval(fallInterval);
-        } else {
-          currentPosition -= 10;
-          dino.style.bottom = currentPosition + 'px';
+      document.addEventListener("keydown", function (event) {
+        if (event.code === "Space" && !isJumping) {
+          isJumping = true;
+          let timerId = setInterval(function () {
+            if (position === 150) {
+              clearInterval(timerId);
+              let downTimerId = setInterval(function () {
+                if (position === 0) {
+                  clearInterval(downTimerId);
+                  isJumping = false;
+                }
+                position -= 30;
+                dinosaur.style.bottom = position + "px";
+              }, 17);
+            }
+            // Move up
+            position += 30;
+            dinosaur.style.bottom = position + "px";
+          }, 17);
         }
-      }, 20);
-    }
-  </script>
-</body>
+      });
+    </script>
+  </body>
 </html>
