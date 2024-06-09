@@ -1,17 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<script>
-    var clickCount = 0; // Переменная для хранения количества кликов
-
-    function increaseClickCount() {
-        clickCount++; // Увеличиваем количество кликов на 1
-        document.getElementById("clickCount").innerHTML = clickCount; // Отображаем общее количество кликов на веб-странице
-    }
-</script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кликер</title>
+    <style>
+        body {
+            background-color: #e5e5e5; /* Цвет заднего фона */
+            color: #000000; /* Цвет текста */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
-    <button onclick="increaseClickCount()">Кликнуть</button>
-    <p>Общее количество кликов: <span id="clickCount">0</span></p>
+    <h1>Добро пожаловать в кликер!</h1>
+    <p id="balance">Баланс: <span id="balanceAmount">0</span> коинов</p>
+    <button onclick="clickHandler()">Кликни здесь!</button>
+    <br>
+    <button onclick="topHandler()">Топ</button>
+    <script>
+        let balance = 0;
+
+        function clickHandler() {
+            balance++;
+            document.getElementById('balanceAmount').innerText = balance;
+        }
+
+        function topHandler() {
+            // Отправка запроса на сервер для обработки топа
+        }
+    </script>
 </body>
 </html>
