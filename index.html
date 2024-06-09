@@ -1,69 +1,64 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-body {
-  background-color: black;
-}
-
-.dino {
-  width: 50px;
-  height: 50px;
-  background-color: white;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
-
-.cactus {
-  width: 20px;
-  height: 40px;
-  background-color: grey;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-}
-</style>
+  <title>Google Dinosaur Game</title>
+  <style>
+    #game-container {
+      position: relative;
+      width: 600px;
+      height: 200px;
+      border: 1px solid #000;
+    }
+    #dino {
+      position: absolute;
+      bottom: 0;
+      left: 10px;
+      width: 50px;
+      height: 50px;
+      background-color: #666;
+    }
+  </style>
 </head>
 <body>
+  <h1>Google Dinosaur Game</h1>
+  <p>Press space to jump</p>
+  <div id="game-container">
+    <div id="dino"></div>
+  </div>
 
-<div class="dino"></div>
-<div class="cactus"></div>
+  <script>
+    document.addEventListener('keydown', function(event) {
+      if (event.code === 'Space') {
+        jump();
+      }
+    });
 
-<script>
-let dino = document.querySelector('.dino');
-let cactus = document.querySelector('.cactus');
-let score = 0;
+    function jump() {
+      let dino = document.getElementById('dino');
+      let currentPosition = 0;
+      let jumpInterval = setInterval(function() {
+        if (currentPosition === 100) {
+          clearInterval(jumpInterval);
+          fall();
+        } else {
+          currentPosition += 10;
+          dino.style.bottom = currentPosition + 'px';
+        }
+      }, 20);
+    }
 
-document.addEventListener('keydown', function(event) {
-  if (event.code === 'Space') {
-    jump();
-  }
-});
-
-function jump() {
-  if (dino.classList != 'jump') {
-    dino.classList.add('jump');
-    setTimeout(function() {
-      dino.classList.remove('jump');
-    }, 300)
-  }
-}
-
-let isAlive = setInterval(function() {
-  let dinoPosition = parseInt(window.getComputedStyle(dino).getPropertyValue('left'));
-  let cactusPosition = parseInt(window.getComputedStyle(cactus).getPropertyValue('right'));
-
-  if (dinoPosition >= cactusPosition) {
-    cactus.style.animation = 'none';
-    alert('Game Over. Your score: ' + score);
-    clearInterval(isAlive);
-  } else {
-    score++;
-  }
-}, 10);
-</script>
-
+    function fall() {
+      let dino = document.getElementById('dino');
+      let currentPosition = 100;
+      let fallInterval = setInterval(function() {
+        if (currentPosition === 0) {
+          clearInterval(fallInterval);
+        } else {
+          currentPosition -= 10;
+          dino.style.bottom = currentPosition + 'px';
+        }
+      }, 20);
+    }
+  </script>
 </body>
 </html>
